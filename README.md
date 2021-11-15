@@ -72,3 +72,8 @@
 
 figma
 https://www.figma.com/file/1kfthgZHUio0PRP7PmbKQg/%E3%82%BB%E3%83%AA%E3%83%95%E7%B7%B4%E7%BF%92%E3%82%A2%E3%83%97%E3%83%AA%2F%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0%3A1
+
+
+### **ER図**
+
+https://drive.google.com/file/d/1ldInjR3HbvuCCnjjjU-tumLs-1DGT3v2/view?usp=sharing
