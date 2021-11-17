@@ -79,7 +79,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: voice_actor_practice_production
-  username: voice_actor_practice
-  password: <%= ENV['VOICE_ACTOR_PRACTICE_DATABASE_PASSWORD'] %>
+   url: <%= ENV['DATABASE_URL'] %>
