@@ -10,16 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_16_135323) do
+ActiveRecord::Schema.define(version: 2021_11_17_074710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "boards", force: :cascade do |t|
-    t.string "title"
-    t.string "text"
+  create_table "quotes", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "quote_image"
+    t.string "opposite_voice"
+    t.integer "emotion", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["opposite_voice"], name: "index_quotes_on_opposite_voice", unique: true
+    t.index ["quote_image"], name: "index_quotes_on_quote_image", unique: true
+    t.index ["title"], name: "index_quotes_on_title", unique: true
   end
 
 end
