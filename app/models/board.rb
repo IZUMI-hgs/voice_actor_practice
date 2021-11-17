@@ -1,2 +1,0 @@
-class Board < ApplicationRecord
-end
