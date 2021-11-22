@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_074710) do
+ActiveRecord::Schema.define(version: 2021_11_22_045401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 2021_11_17_074710) do
     t.integer "emotion", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["opposite_voice"], name: "index_quotes_on_opposite_voice", unique: true
-    t.index ["quote_image"], name: "index_quotes_on_quote_image", unique: true
     t.index ["title"], name: "index_quotes_on_title", unique: true
   end
 
