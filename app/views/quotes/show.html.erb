@@ -1,0 +1,11 @@
+<div class="text-center">
+  <%= @quote.title %><br>
+  <br>
+  <% if @quote.quote_image.present? %>
+    <%= image_tag @quote.quote_image.url %>
+  <% end %><br>
+  <br>
+  <%= link_to 'セリフ作成', new_quote_path %>
+  <%= link_to 'セリフ編集', edit_quote_path %>
+<br>
+</div>

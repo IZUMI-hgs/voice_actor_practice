@@ -1,0 +1,25 @@
+<%= form_with model: @quote, local: true do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </div>
+  
+    <div>
+      <%= form.label :quote_image %><br>
+      <%= form.file_field :quote_image %>
+    </div>
+
+    <div>
+    <%= form.label :opposite_voice %><br>
+    <%= form.file_field :opposite_voice %>
+  </div>
+
+  <div>
+  <%= form.label :emotion %><br>
+  <%= form.text_field :emotion %>
+  </div>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
