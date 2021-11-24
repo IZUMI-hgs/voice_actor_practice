@@ -4,12 +4,14 @@ class QuotesController < ApplicationController
     @quotes = Quote.all
   end
 
-  def new; end
+  def new
+    @quote = Quote.new
+  end
 
   def create
     @quote =Quote.create(quote_params)
     if @quote.save
-      redirect_to quotess_path
+      redirect_to quotes_path
     else
       render :new
     end
