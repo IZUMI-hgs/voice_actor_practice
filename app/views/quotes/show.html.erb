@@ -1,11 +1,41 @@
-<div class="text-center">
-  <%= @quote.title %><br>
-  <br>
-  <% if @quote.quote_image.present? %>
-    <%= image_tag @quote.quote_image.url %>
-  <% end %><br>
-  <br>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Web dictaphone</title>
+
+</head>
+
+  <div class="text-center">
+    <%= @quote.title %><br>
+    <br>
+    <% if @quote.quote_image.present? %>
+      <%= image_tag @quote.quote_image.url %>
+    <% end %><br>
+    <br>
+    <div class="wrapper">
+
+
+    <section class="main-controls">
+      <canvas class="visualizer" height="60px"></canvas>
+      <div id="buttons">
+        <button class="record btn btn-success">Record</button>
+        <button class="stop btn btn-warning">Stop</button>
+      </div>
+      <%= audio_tag(@quote.opposite_voice.url, id: "oppositevoice") %>
+
+    </section>
+
+    <section class="sound-clips">
+
+
+    </section>
+
+  </div>
+
+ 
+  <%= javascript_pack_tag 'app' %>
+
+
   <%= link_to 'セリフ作成', new_quote_path %>
-  <%= link_to 'セリフ編集', edit_quote_path %>
-<br>
+  <%= link_to 'セリフ編集', edit_quote_path %><br>
 </div>
