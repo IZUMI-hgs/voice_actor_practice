@@ -2,10 +2,10 @@
 
 const record = document.querySelector('.record');
 const stop = document.querySelector('.stop');
+const play = document.querySelector('.play');
 const soundClips = document.querySelector('.sound-clips');
 const canvas = document.querySelector('.visualizer');
 const mainSection = document.querySelector('.main-controls');
-const oppositevoice = document.querySelector("#audio");
 
 
 // disable stop button while not recording
@@ -57,55 +57,30 @@ if (navigator.mediaDevices.getUserMedia) {
     mediaRecorder.onstop = function(e) {
       console.log("data available after MediaRecorder.stop() called.");
 
-      const clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
 
-      const clipContainer = document.createElement('article');
-      const clipLabel = document.createElement('p');
-      const audio = document.createElement('audio');
-      const deleteButton = document.createElement('button');
-
-      clipContainer.classList.add('clip');
-      audio.setAttribute('controls', '');
-      deleteButton.textContent = 'Delete';
-      deleteButton.className = 'delete';
-
-      if(clipName === null) {
-        clipLabel.textContent = 'My unnamed clip';
-      } else {
-        clipLabel.textContent = clipName;
-      }
-
-      clipContainer.appendChild(audio);
-      clipContainer.appendChild(clipLabel);
-      clipContainer.appendChild(deleteButton);
-      soundClips.appendChild(clipContainer);
-
-      audio.controls = true;
+      const clipContainer = document.getElementsByTagName('article');
+      const audio = document.querySelector('.voice');
+      
+      
+      audio.controls = false;
       const blob = new Blob(chunks, { 'type' : 'audio/wav; codecs=opus' });
       chunks = [];
       const audioURL = window.URL.createObjectURL(blob);
       audio.src = audioURL;
       console.log("recorder stopped");
 
-      deleteButton.onclick = function(e) {
-        let evtTgt = e.target;
-        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
-      }
-
-      clipLabel.onclick = function() {
-        const existingName = clipLabel.textContent;
-        const newClipName = prompt('Enter a new name for your sound clip?');
-        if(newClipName === null) {
-          clipLabel.textContent = existingName;
-        } else {
-          clipLabel.textContent = newClipName;
-        }
-      }
     }
+    
 
     mediaRecorder.ondataavailable = function(e) {
       chunks.push(e.data);
     }
+  }
+
+  play.onclick = function() {
+
+    document.querySelector('.voice').play();
+
   }
 
   let onError = function(err) {
