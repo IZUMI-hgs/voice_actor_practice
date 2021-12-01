@@ -14,6 +14,6 @@ class ResultsController < ApplicationController
   private
 
   def result_params
-    params.permit(:quote_id, :result_message, :voice_date, :uuid )
+    params.permit(:quote_id, :result_message, :voice_data, :uuid )
   end
 end
