@@ -1,11 +1,15 @@
 // set up basic variables for app
-
+import axios from 'axios';
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
 const record = document.querySelector('.record');
 const stop = document.querySelector('.stop');
 const play = document.querySelector('.play');
 const soundClips = document.querySelector('.sound-clips');
 const canvas = document.querySelector('.visualizer');
 const mainSection = document.querySelector('.main-controls');
+const audio = document.querySelector('.voice');
+const result = document.querySelector('.result')
 
 
 // disable stop button while not recording
@@ -57,30 +61,49 @@ if (navigator.mediaDevices.getUserMedia) {
     mediaRecorder.onstop = function(e) {
       console.log("data available after MediaRecorder.stop() called.");
 
-
-      const clipContainer = document.getElementsByTagName('article');
-      const audio = document.querySelector('.voice');
       
-      
-      audio.controls = false;
-      const blob = new Blob(chunks, { 'type' : 'audio/wav; codecs=opus' });
-      chunks = [];
-      const audioURL = window.URL.createObjectURL(blob);
-      audio.src = audioURL;
-      console.log("recorder stopped");
-
     }
-    
-
+  
     mediaRecorder.ondataavailable = function(e) {
-      chunks.push(e.data);
+
+    let blob = new Blob([e.data], { type: "audio/wav" });
+    audio.controls = false;
+    const audioURL = window.URL.createObjectURL(blob);
+    audio.src = audioURL;
+    console.log("recorder stopped");
+    const reader = new FileReader();
+    reader.onload = (event) => {
+       sessionStorage.setItem("file", event.target.result);
+    }
+    reader.readAsDataURL(blob);
     }
   }
-
-  play.onclick = function() {
+   
+    play.onclick = function() {
 
     document.querySelector('.voice').play();
 
+   }
+
+   result.onclick = function() {
+    let bin = atob(sessionStorage.getItem("file").replace(/^.*,/, ''));
+    let buffer = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+    buffer[i] = bin.charCodeAt(i);
+    }
+    let voicefile = new File([buffer.buffer], bin, {type: "audio/wav"});
+  
+
+    let formData = new FormData();
+    formData.append('quote_id', document.querySelector('#quote_id').value)
+    formData.append('voice_data', voicefile, 'voice.wav');
+    axios.post(document.querySelector('#voiceform').action,  formData, {
+    headers: {
+    'content-type': 'multipart/form-data',
+    }
+    }).catch(error => {
+    console.log(error.response)
+   })
   }
 
   let onError = function(err) {
