@@ -36,8 +36,17 @@
   </div>
 
  
-  <%= javascript_pack_tag 'app' %>
+  <br>
+  <%= form_with url:quote_results_path(@quote), id: "voiceform", local: true do |f| %>
 
+    <%= f.hidden_field :quote_id, :value => @quote.id %>
+  
+    <%= f.hidden_field  :voice_data  %>
+  
+  
+  <% end %>
+  <button class="result btn btn-info" >判定結果へ</button><br>
   <%= link_to 'セリフ作成', new_quote_path %>
   <%= link_to 'セリフ編集', edit_quote_path %><br>
 </div>
+<%= javascript_pack_tag 'app' %>
