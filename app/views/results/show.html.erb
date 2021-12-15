@@ -1,1 +1,12 @@
-<p>result show</p>
+
+<div class="text-center">
+  <%= @result.quote.title %><br>
+  <br>
+  <% if @result.quote.quote_image.present? %>
+    <%= image_tag @result.quote.quote_image.url %>
+  <% end %><br>
+  <br>
+ 
+  <%=audio_tag("#{@result.voice_data.url}", controls: true) %>
+  <%= @data %>
+</div>

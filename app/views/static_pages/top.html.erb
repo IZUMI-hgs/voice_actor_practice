@@ -1,4 +1,51 @@
-<div class="text-center">
-  <p>心を揺さぶる演技を</p>
-  <%= link_to "はじめる", quotes_path, class: "btn btn-primary text-light" %>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="最新技術と自然との調和を目指す">
+<meta name="viewport" content="width=device-width">
+<title>SAMPLE COMPANY | 最新技術と自然との調和を目指す</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+</head>
+
+<body id="top">
+<div id="mainImg">
+<br>
+<%= image_tag('main.jpeg') %><br>
 </div>
+
+<!-- BRAND --> 
+<section id="sec04">
+	<header>
+		<h2><span>使い方</span></h2>
+	</header>
+	<div class="inner">
+		<ul class="col3">
+      <li>
+				<%= image_tag('logo1.jpg') %><br>
+				<h4>セリフ一覧から<br>練習したいセリフをクリック！<h4>
+			</li>
+			<li>
+      <%= image_tag('logo2.jpg') %><br>
+				<h4>『録音ボタン』で録音スタート！相手役セリフ音声が流れるので、<br>相手に応答する形であなたのセリフを発声してね！</h4>
+			</li>
+			<li>
+      <%= image_tag('logo3.jpg') %><br>
+				<h4>発声が終わったら『ストップ』ボタンをクリック！<br>『判定結果へ』ボタンで点数を確認しよう！</h4>
+			</li>
+		</ul>
+	</div>
+
+  <div class="text-center">
+<%= link_to ">>>練習スタート<<<", quotes_path, class: "btn btn-danger btn-lg text-light" %>
+</div>
+<br>
+<br>
+<br>
+<footer id="footer">
+	Copyright(c) 2016 Sample Inc. All Rights Reserved. Design by <a href="http://f-tpl.com" target="_blank">http://f-tpl.com</a><!-- ←クレジット表記を外す場合はシリアルキーが必要です http://f-tpl.com/credit/ -->
+  <div>ロゴは <a href="https://www.designevo.com/jp/" title="無料オンラインロゴメーカー">DesignEvo</a> ロゴメーカーさんに作られる</div>
+  </footer>
+
+</body>
+</html>

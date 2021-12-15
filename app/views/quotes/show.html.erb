@@ -1,10 +1,11 @@
+<html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<title>Web dictaphone</title>
-
-</head>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="ブラウザ上で使用することができるボイスレコーダーです。録音したデータはWAVファイルとしてダウンロード可能です。また、追加のソフトウェアなどは不要です。">
+    </head>
+<body>
   <div class="text-center">
     <%= @quote.title %><br>
     <br>
@@ -12,41 +13,22 @@
       <%= image_tag @quote.quote_image.url %>
     <% end %><br>
     <br>
-    <div class="wrapper">
+    <button class = "btn btn-primary" id="rec" >録音開始</button>
+    <button class = "btn btn-warning" id="stop" >録音停止</button>
+    <button class = "btn btn-info" id="playid" >録音再生</button><br>
+    <audio id="play" controls></audio><br>
+    <a id ="download" type="hidden"></a><br>
+    <button class = "btn btn-danger" id="result" >結果へ</button><br>
+    <%= form_with url:quote_results_path(@quote), id: "voiceform", local: true do |f| %>
 
-
-    <section class="main-controls">
-      <canvas class="visualizer" height="60px"></canvas>
-      <div id="buttons">
-        <button class="record btn btn-success">Record</button>
-        <button class="stop btn btn-warning">Stop</button>
-        <button class="play btn btn-primary">Play</button>
-      </div>
-      <%= audio_tag(@quote.opposite_voice.url, id: "oppositevoice") %>
-
-    </section>
-
-    <section class="sound-clips">
-    <article>
-    <audio class='voice'></audio>
-    </article>
-
-    </section>
-
+      <%= f.hidden_field :quote_id, :value => @quote.id %>
+      <%= f.hidden_field  :uuid  %>
+      <%= f.hidden_field  :voice_data  %>
+    <% end %>
+    <br>
+    <br>
+    <br>
   </div>
-
- 
-  <br>
-  <%= form_with url:quote_results_path(@quote), id: "voiceform", local: true do |f| %>
-
-    <%= f.hidden_field :quote_id, :value => @quote.id %>
-  
-    <%= f.hidden_field  :voice_data  %>
-  
-  
-  <% end %>
-  <button class="result btn btn-info" >判定結果へ</button><br>
-  <%= link_to 'セリフ作成', new_quote_path %>
-  <%= link_to 'セリフ編集', edit_quote_path %><br>
-</div>
+</body>
 <%= javascript_pack_tag 'app' %>
+</html>

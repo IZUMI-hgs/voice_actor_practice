@@ -47,3 +47,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'carrierwave'
 gem 'dotenv-rails'
 gem 'fog-aws'
+gem 'rest-client'
+gem 'carrierwave-audio'
