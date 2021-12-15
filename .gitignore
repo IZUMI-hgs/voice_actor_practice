@@ -22,9 +22,8 @@
 /storage/*
 !/storage/.keep
 
-/public/*
-!assets
-/public/assets/font-awesome
+/public/assets
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
