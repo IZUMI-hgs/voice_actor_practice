@@ -1,7 +1,8 @@
 class VoiceDataUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-   include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
+  include CarrierWave::Audio
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.production?
@@ -31,7 +32,7 @@ class VoiceDataUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-  process resize_to_fit: [900, 600]
+
   # Create different versions of your uploaded files:
   # version :thumb do
   #   process resize_to_fit: [50, 50]

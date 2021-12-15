@@ -2,179 +2,189 @@
 import axios from 'axios';
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
-const record = document.querySelector('.record');
-const stop = document.querySelector('.stop');
-const play = document.querySelector('.play');
-const soundClips = document.querySelector('.sound-clips');
-const canvas = document.querySelector('.visualizer');
-const mainSection = document.querySelector('.main-controls');
-const audio = document.querySelector('.voice');
-const result = document.querySelector('.result')
+// for html
+const downloadLink = document.getElementById('download');
+const playback = document.getElementById('play');
+const result = document.getElementById('result');
+
+// for audio
+let stream = null;
+let audio_sample_rate = null;
+let scriptProcessor = null;
+let audioContext = null;
+let mediastreamsource = null;
+
+// audio data
+let audioData = [];
+let bufferSize = 1024;
+let micBlobUrl = null;
 
 
-// disable stop button while not recording
+//document.getElementById("start").disabled = false;
+//document.getElementById("rec").disabled = true;
+//document.getElementById("stop").disabled = true;
+//document.getElementById("playid").disabled = true;
 
-stop.disabled = true;
-
-// visualiser setup - create web audio api context and canvas
-
-let audioCtx;
-const canvasCtx = canvas.getContext("2d");
-
-//main block for doing the audio recording
-
-if (navigator.mediaDevices.getUserMedia) {
-  console.log('getUserMedia supported.');
-
-  const constraints = { audio: true };
-  let chunks = [];
-
-  let onSuccess = function(stream) {
-    const mediaRecorder = new MediaRecorder(stream);
-
-    visualize(stream);
-
-    record.onclick = function() {
-      mediaRecorder.start();
-      console.log(mediaRecorder.state);
-      console.log("recorder started");
-      record.style.background = "red";
-
-      document.querySelector("#oppositevoice").play();
-
-      stop.disabled = false;
-      record.disabled = true;
+//録音の開始
+document.addEventListener("DOMContentLoaded", function() {
+    // getUserMedia
+    if (!stream) {
+        // getUserMediaはpromise を返す
+        navigator.mediaDevices.getUserMedia({
+            video: false,
+            audio: true
+        })
+            .then(function (audio) { // promiseのresultをaudioStreamに格納
+                stream = audio;
+            })
+            .catch(function (error) { // error
+                console.error('mediaDevice.getUserMedia() error:', error);
+                return;
+            });
     }
+    //document.getElementById("start").disabled = true;
+    //document.getElementById("rec").disabled = false;
+    //document.getElementById("stop").disabled = true;
+    //document.getElementById("playid").disabled = true;
 
-    stop.onclick = function() {
-      mediaRecorder.stop();
-      console.log(mediaRecorder.state);
-      console.log("recorder stopped");
-      record.style.background = "";
-      record.style.color = "";
-      // mediaRecorder.requestData();
+    return stream;
+});
 
-      stop.disabled = true;
-      record.disabled = false;
+document.getElementById('rec').onclick = function() {
+    audioData = [];
+    audioContext = new AudioContext();
+    audio_sample_rate = audioContext.sampleRate;
+    scriptProcessor = audioContext.createScriptProcessor(bufferSize, 2, 2);
+    mediastreamsource = audioContext.createMediaStreamSource(stream);
+    mediastreamsource.connect(scriptProcessor);
+    scriptProcessor.onaudioprocess = onAudioProcess;
+    scriptProcessor.connect(audioContext.destination);
+    //document.getElementById("rec").disabled = true;
+    //document.getElementById("stop").disabled = false;
+    //document.getElementById("playid").disabled = true;
+};
+
+// save audio data
+var onAudioProcess = function (e) {
+    var input = e.inputBuffer.getChannelData(0);
+    var bufferData = new Float32Array(bufferSize);
+    for (var i = 0; i < bufferSize; i++) {
+        bufferData[i] = input[i];
     }
+    audioData.push(bufferData);
+};
 
-    mediaRecorder.onstop = function(e) {
-      console.log("data available after MediaRecorder.stop() called.");
+//録音の停止
+document.getElementById('stop').onclick = function() {
+    saveAudio();
+    //document.getElementById("rec").disabled = false;
+    //document.getElementById("stop").disabled = true;
+    //document.getElementById("playid").disabled = false;
+}
 
-      
+//再生
+document.getElementById('playid').onclick = function(audioBlob) {
+    if (micBlobUrl) {
+        playback.src = micBlobUrl;
+        // 再生終了時
+        playback.onended = function () {
+            playback.pause();
+            playback.src = "";
+        };
+        // 再生
+        playback.play();
     }
-  
-    mediaRecorder.ondataavailable = function(e) {
+};
 
-    let blob = new Blob([e.data], { type: "audio/wav" });
-    audio.controls = false;
-    const audioURL = window.URL.createObjectURL(blob);
-    audio.src = audioURL;
-    console.log("recorder stopped");
-    const reader = new FileReader();
-    reader.onload = (event) => {
-       sessionStorage.setItem("file", event.target.result);
-    }
-    reader.readAsDataURL(blob);
-    }
-  }
-   
-    play.onclick = function() {
+//WAVに変換
+let exportWAV = function (audioData) {
+    let encodeWAV = function (samples, sampleRate) {
+        let buffer = new ArrayBuffer(44 + samples.length * 2);
+        let view = new DataView(buffer);
 
-    document.querySelector('.voice').play();
+        let writeString = function (view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        };
 
-   }
+        let floatTo16BitPCM = function (output, offset, input) {
+            for (let i = 0; i < input.length; i++, offset += 2) {
+                let s = Math.max(-1, Math.min(1, input[i]));
+                output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+            }
+        };
 
-   result.onclick = function() {
-    let bin = atob(sessionStorage.getItem("file").replace(/^.*,/, ''));
-    let buffer = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) {
-    buffer[i] = bin.charCodeAt(i);
-    }
-    let voicefile = new File([buffer.buffer], bin, {type: "audio/wav"});
-  
+        writeString(view, 0, 'RIFF');  // RIFFヘッダ
+        view.setUint32(4, 32 + samples.length * 2, true); // これ以降のファイルサイズ
+        writeString(view, 8, 'WAVE'); // WAVEヘッダ
+        writeString(view, 12, 'fmt '); // fmtチャンク
+        view.setUint32(16, 16, true); // fmtチャンクのバイト数
+        view.setUint16(20, 1, true); // フォーマットID
+        view.setUint16(22, 1, true); // チャンネル数
+        view.setUint32(24, sampleRate, true); // サンプリングレート
+        view.setUint32(28, sampleRate * 2, true); // データ速度
+        view.setUint16(32, 2, true); // ブロックサイズ
+        view.setUint16(34, 16, true); // サンプルあたりのビット数
+        writeString(view, 36, 'data'); // dataチャンク
+        view.setUint32(40, samples.length * 2, true); // 波形データのバイト数
+        floatTo16BitPCM(view, 44, samples); // 波形データ
+        return view;
+    };
 
-    let formData = new FormData();
+    let mergeBuffers = function (audioData) {
+        let sampleLength = 0;
+        for (let i = 0; i < audioData.length; i++) {
+            sampleLength += audioData[i].length;
+        }
+        let samples = new Float32Array(sampleLength);
+        let sampleIdx = 0;
+        for (let i = 0; i < audioData.length; i++) {
+            for (let j = 0; j < audioData[i].length; j++) {
+                samples[sampleIdx] = audioData[i][j];
+                sampleIdx++;
+            }
+        }
+        return samples;
+    };
+
+    let dataview = encodeWAV(mergeBuffers(audioData), audio_sample_rate);
+    let audioBlob = new Blob([dataview], { type: 'audio/wav' });
+    micBlobUrl = window.URL.createObjectURL(audioBlob);
+    console.log(dataview);
+
+    let myURL = window.URL || window.webkitURL;
+    let url = myURL.createObjectURL(audioBlob);
+    downloadLink.href = url;
+};
+
+let saveAudio = function () {
+    exportWAV(audioData);
+    downloadLink.download = 'test.wav';
+    audioContext.close().then(function () {
+    });
+};
+
+result.onclick = function() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', document.querySelector('#download').href, true);
+  xhr.responseType = 'blob';
+  xhr.send();
+  xhr.onload = function(e) {
+    var myBlob = this.response;
+    // myBlob is now the blob that the object URL pointed to.
+  let formData = new FormData();
     formData.append('quote_id', document.querySelector('#quote_id').value)
-    formData.append('voice_data', voicefile, 'voice.wav');
+    formData.append('voice_data', myBlob, 'voice.wav');
     axios.post(document.querySelector('#voiceform').action,  formData, {
     headers: {
     'content-type': 'multipart/form-data',
     }
-    }).catch(error => {
-    console.log(error.response)
-   })
-  }
-
-  let onError = function(err) {
-    console.log('The following error occured: ' + err);
-  }
-
-  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
-
-} else {
-   console.log('getUserMedia not supported on your browser!');
-}
-
-function visualize(stream) {
-  if(!audioCtx) {
-    audioCtx = new AudioContext();
-  }
-
-  const source = audioCtx.createMediaStreamSource(stream);
-
-  const analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 2048;
-  const bufferLength = analyser.frequencyBinCount;
-  const dataArray = new Uint8Array(bufferLength);
-
-  source.connect(analyser);
-  //analyser.connect(audioCtx.destination);
-
-  draw()
-
-  function draw() {
-    const WIDTH = canvas.width
-    const HEIGHT = canvas.height;
-
-    requestAnimationFrame(draw);
-
-    analyser.getByteTimeDomainData(dataArray);
-
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-
-    canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-
-    canvasCtx.beginPath();
-
-    let sliceWidth = WIDTH * 1.0 / bufferLength;
-    let x = 0;
-
-
-    for(let i = 0; i < bufferLength; i++) {
-
-      let v = dataArray[i] / 128.0;
-      let y = v * HEIGHT/2;
-
-      if(i === 0) {
-        canvasCtx.moveTo(x, y);
-      } else {
-        canvasCtx.lineTo(x, y);
-      }
-
-      x += sliceWidth;
-    }
-
-    canvasCtx.lineTo(canvas.width, canvas.height/2);
-    canvasCtx.stroke();
-
-  }
-}
-
-window.onresize = function() {
-  canvas.width = mainSection.offsetWidth;
-}
-
-window.onresize();
+    }).then(response => {
+      let data = response.data
+      window.location.href = data.url
+      }).catch(error => {
+      console.log(error.response)
+    })
+  } 
+};
