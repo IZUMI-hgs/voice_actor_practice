@@ -20,10 +20,10 @@ let bufferSize = 1024;
 let micBlobUrl = null;
 
 
-//document.getElementById("start").disabled = false;
-//document.getElementById("rec").disabled = true;
-//document.getElementById("stop").disabled = true;
-//document.getElementById("playid").disabled = true;
+document.getElementById("start").disabled = false;
+document.getElementById("rec").disabled = true;
+document.getElementById("stop").disabled = true;
+document.getElementById("playid").disabled = true;
 
 //録音の開始
 document.getElementById('start').onclick = function() {
@@ -37,6 +37,7 @@ document.getElementById('start').onclick = function() {
             .then(function (audio) { // promiseのresultをaudioStreamに格納
                 stream = audio;
                 console.log('録音に対応しています');
+                document.getElementById('warning_text').style.display = "none";
                 return stream
             })
             .catch(function (error) { // error
@@ -44,10 +45,10 @@ document.getElementById('start').onclick = function() {
                 return;
             });
     }
-    //document.getElementById("start").disabled = true;
-    //document.getElementById("rec").disabled = false;
-    //document.getElementById("stop").disabled = true;
-    //document.getElementById("playid").disabled = true;
+    document.getElementById("start").disabled = true;
+    document.getElementById("rec").disabled = false;
+    document.getElementById("stop").disabled = true;
+    document.getElementById("playid").disabled = true;
 
 };
 
@@ -60,9 +61,13 @@ document.getElementById('rec').onclick = function() {
     mediastreamsource.connect(scriptProcessor);
     scriptProcessor.onaudioprocess = onAudioProcess;
     scriptProcessor.connect(audioContext.destination);
-    //document.getElementById("rec").disabled = true;
-    //document.getElementById("stop").disabled = false;
-    //document.getElementById("playid").disabled = true;
+    document.querySelector("#oppositevoice").play();
+    document.getElementById("rec").disabled = true;
+    document.getElementById("stop").disabled = false;
+    document.getElementById("playid").disabled = true;
+    setTimeout(function(){
+        document.getElementById('stop').click();
+    },30000);
 };
 
 // save audio data
@@ -78,9 +83,9 @@ var onAudioProcess = function (e) {
 //録音の停止
 document.getElementById('stop').onclick = function() {
     saveAudio();
-    //document.getElementById("rec").disabled = false;
-    //document.getElementById("stop").disabled = true;
-    //document.getElementById("playid").disabled = false;
+    document.getElementById("rec").disabled = false;
+    document.getElementById("stop").disabled = true;
+    document.getElementById("playid").disabled = false;
 }
 
 //再生

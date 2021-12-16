@@ -5,7 +5,7 @@ class ResultsController < ApplicationController
   def show
     @result = Result.find_by(uuid: params[:uuid])
     hash = JSON.parse @result.result_message.gsub('=>', ':')
-    @score = hash["emotion_detail"]["sad"]*100
+    @score = hash["emotion_detail"][@result.quote.emotion]*100
   end
 
 
