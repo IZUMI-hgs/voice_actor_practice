@@ -1,7 +1,8 @@
 <div class="text-center">
-  <p>練習したいセリフを選ぼう！</p>
+  <h2>練習したいセリフを選ぼう！</h2>
+  </br>
   <% @quotes.each do |quote| %>
-      <%= link_to quote_path(quote) do %>
+      <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3' do %>
          <%= quote.title %>
       <% end %>
   <% end %>

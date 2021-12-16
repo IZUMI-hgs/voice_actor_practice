@@ -8,5 +8,15 @@
   <br>
  
   <%=audio_tag("#{@result.voice_data.url}", controls: true) %>
-  <h3>あなたのスコアは<%= @score.floor %>点です！！！</h3>
+  <% if @score.ceil(2)< 1 %>
+    <%= render 'result1' %>
+  <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 %>
+    <%= render 'result2' %>
+  <% elsif @score.ceil(2)>= 10 && @score.ceil(2) < 40 %>
+    <%= render 'result3' %>
+  <% elsif @score.ceil(2)>= 40 && @score.ceil(2) < 60 %>
+    <%= render 'result4' %>
+  <% else %>
+    <%= render 'result5' %>
+  <% end %>
 </div>
