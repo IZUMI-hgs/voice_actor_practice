@@ -4,28 +4,31 @@ class ResultsController < ApplicationController
 
   def show
     @result = Result.find_by(uuid: params[:uuid])
-    url = 'https://ai-api.userlocal.jp/voice-emotion/basic-emotions' 
-    voice = File.new("#{@result.voice_data.path}")
-    response = RestClient::Request.execute(
-      method: :post,
-      url: url,
-      payload: {
-       multipart: true,
-       voice_data: voice
-      }
-    )
-    @data = JSON.parse(response.body)
+    hash = JSON.parse @result.result_message.gsub('=>', ':')
+    @score = hash["emotion_detail"]["sad"]*100
   end
 
 
-  def create 
-    result =Result.create(result_params.merge(uuid: SecureRandom.uuid))
+  def create     
+    url = 'https://ai-api.userlocal.jp/voice-emotion/basic-emotions'
+    voice = File.new(params[:voice_data])
+    response = RestClient::Request.execute(
+    method: :post,
+    url: url,
+    payload: {
+    multipart: true,
+    voice_data: voice },
+    content_type: 'audio/wav'
+    )
+    data = JSON.parse(response.body)
+
+    result =Result.create(result_params.merge(uuid: SecureRandom.uuid, result_message: data))
     render json: { uuid: result.uuid, url: quote_result_url(result.quote_id, result.uuid) }
   end
 
   private
 
   def result_params
-    params.permit(:quote_id, :result_message, :voice_data )
+    params.permit(:quote_id, :voice_data )
   end
 end
