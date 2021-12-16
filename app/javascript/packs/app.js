@@ -26,7 +26,7 @@ let micBlobUrl = null;
 //document.getElementById("playid").disabled = true;
 
 //録音の開始
-document.addEventListener("DOMContentLoaded", function() {
+document.getElementById('start').onclick = function() {
     // getUserMedia
     if (!stream) {
         // getUserMediaはpromise を返す
@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
         })
             .then(function (audio) { // promiseのresultをaudioStreamに格納
                 stream = audio;
+                console.log('録音に対応しています');
+                return stream
             })
             .catch(function (error) { // error
                 console.error('mediaDevice.getUserMedia() error:', error);
@@ -47,8 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById("stop").disabled = true;
     //document.getElementById("playid").disabled = true;
 
-    return stream;
-});
+};
 
 document.getElementById('rec').onclick = function() {
     audioData = [];
