@@ -10,13 +10,14 @@ class ResultsController < ApplicationController
 
 
   def create     
-    url = 'https://ai-api.userlocal.jp/voice-emotion/basic-emotions'
+    url = ENV['API_URL']
     voice = File.new(params[:voice_data])
     response = RestClient::Request.execute(
     method: :post,
     url: url,
     payload: {
     multipart: true,
+    api_key: ENV['API_KEY'],
     voice_data: voice },
     content_type: 'audio/wav'
     )

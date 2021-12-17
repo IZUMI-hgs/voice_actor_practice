@@ -65,19 +65,16 @@ a:active, a:focus,input:active, input:focus{outline:0;}
 }
 
 #mainImg{
-	position: relative;
+  margin : 0 auto;
+  position: relative;
   overflow: hidden;
-  width: 100%;
-  height: 528px;
+  width: 60%;
+  height: 700px;
 }
 
 #mainImg img{
 	position: absolute;
-  left: 50%;
-	max-width: 1000px;
-  width: 1000px;
-  height: 528px;
-  margin-left: -480px;
+  width: 100%;
 }
 
 

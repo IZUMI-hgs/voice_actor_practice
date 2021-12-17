@@ -9,16 +9,12 @@
 </head>
 
 <body id="top">
-<div id="mainImg">
-<br>
-<%= image_tag('main.jpeg') %><br>
-</div>
+  <div id="mainImg">
+    <%= image_tag('main.jpeg', size: '200x150') %>
+  </div>
 
-<!-- BRAND --> 
 <section id="sec04">
-	<header>
 		<h2><span>使い方</span></h2>
-	</header>
 	<div class="inner">
 		<ul class="col3">
       <li>
@@ -39,6 +35,7 @@
   <div class="text-center">
 <%= link_to ">>>練習スタート<<<", quotes_path, class: "btn btn-danger btn-lg text-light" %>
 </div>
+</section>
 <br>
 <br>
 <br>
