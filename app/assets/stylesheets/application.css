@@ -68,7 +68,7 @@ a:active, a:focus,input:active, input:focus{outline:0;}
   margin : 0 auto;
   position: relative;
   overflow: hidden;
-  width: 60%;
+  width: 70%;
   height: 700px;
 }
 
@@ -98,7 +98,7 @@ img{
 
 section{
 	clear:both;
-	padding-top: 70px;
+	padding-top: 1px;
 }
 
 section h2{
@@ -119,15 +119,28 @@ section h2 span {
 .inner{
 	width: 94%;
 	margin: 0 auto;
+	padding-top: 100px;
 	padding-bottom: 50px;
 }
 
 .innerS{
 	width: 60%;
 	margin: 0 auto;
+	padding-top: 100px;
 	padding-bottom: 80px;
 }
 
+.innerS h1{
+	padding-bottom: 50px;
+}
+
+.usemic{
+	padding-bottom: 80px;
+}
+
+.font-size text{
+	font-size: 23px;
+}
 
 /* SEC02 Gallery
 ------------------------------------------------------------*/
@@ -291,9 +304,20 @@ section h2 span {
 }
 
 @media only screen and (max-width: 640px){
+	#mainImg{
+		margin : 0 auto;
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		height: 300px;
+	  }
 	.innerS{
 		width: 94%;
+		padding-top: 1px;
 		padding-bottom: 70px;
+	}
+	.innerS h1{
+		padding-bottom: 1px;
 	}
 	.col3 li{
 		line-height: 1.7;
@@ -316,11 +340,18 @@ section h2 span {
 	#sec04_02{
 		padding: 50px 20px;
 	}
+	.usemic{
+		padding-bottom: 10px;
+	}
+	.font-size text{
+		font-size: 3px;
+	}
+	
 }
 
 @media only screen and (max-width: 799px){
 	#header{
-		position: fixed;
+		position: relative;
 		width: 100%;
 		z-index: 500;
 	}

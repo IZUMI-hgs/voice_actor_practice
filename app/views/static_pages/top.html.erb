@@ -10,39 +10,38 @@
 
 <body id="top">
   <div id="mainImg">
+  </br>
     <%= image_tag('main.jpeg', size: '200x150') %>
   </div>
-
-<section id="sec04">
-		<h2><span>使い方</span></h2>
-	<div class="inner">
-		<ul class="col3">
+  <section id="sec04">
+    <div class="innerS">
+      <h1 class="text-center">〜使い方〜</h1>
+	  <ul class="col3">
       <li>
-				<%= image_tag('logo1.jpg') %><br>
-				<h4>セリフ一覧から<br>練習したいセリフをクリック！<h4>
-			</li>
-			<li>
-      <%= image_tag('logo2.jpg') %><br>
-				<h4>『録音ボタン』で録音スタート！相手役セリフ音声が流れるので、<br>相手に応答する形であなたのセリフを発声してね！</h4>
-			</li>
-			<li>
-      <%= image_tag('logo3.jpg') %><br>
-				<h4>発声が終わったら『ストップ』ボタンをクリック！<br>『判定結果へ』ボタンで点数を確認しよう！</h4>
-			</li>
-		</ul>
+		<%= image_tag('logo1.jpg') %><br>
+		<h4>セリフ一覧から<br>練習したいセリフをクリック。<h4>
+	  </li>
+	  <li>
+	    <%= image_tag('logo2.jpg') %><br>
+		<h4>『録音開始』を押すと相手役セリフ音声が流れるので、<br>相手に応答する形であなたのセリフを発声してください。</h4>
+	  </li>
+	  <li>
+		<%= image_tag('logo3.jpg') %><br>
+		<h4>発声が終わったら『録音停止』ボタンをクリック。<br>『判定結果へ』ボタンで点数を確認しましょう。</h4>
+	  </li>
+	  </ul>
 	</div>
-
-  <div class="text-center">
-<%= link_to ">>>練習スタート<<<", quotes_path, class: "btn btn-danger btn-lg text-light" %>
+	</section>
+<div class="text-center">
+  <%= link_to ">>>練習スタート<<<", quotes_path, class: "btn btn-danger btn-lg text-light" %>
 </div>
-</section>
 <br>
 <br>
 <br>
 <footer id="footer">
 	Copyright(c) 2016 Sample Inc. All Rights Reserved. Design by <a href="http://f-tpl.com" target="_blank">http://f-tpl.com</a><!-- ←クレジット表記を外す場合はシリアルキーが必要です http://f-tpl.com/credit/ -->
   <div>ロゴは <a href="https://www.designevo.com/jp/" title="無料オンラインロゴメーカー">DesignEvo</a> ロゴメーカーさんに作られる</div>
-  </footer>
+</footer>
 
 </body>
 </html>
