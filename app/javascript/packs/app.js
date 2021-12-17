@@ -38,6 +38,7 @@ document.getElementById('start').onclick = function() {
                 stream = audio;
                 console.log('録音に対応しています');
                 document.getElementById('warning_text').style.display = "none";
+                document.getElementById('start').style.display = "none";
                 return stream
             })
             .catch(function (error) { // error

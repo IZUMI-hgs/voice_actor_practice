@@ -1,13 +1,13 @@
 
 <div class="text-center">
-  <%= @result.quote.title %><br>
+  <h2><%= @result.quote.title %></h2><br>
   <br>
   <% if @result.quote.quote_image.present? %>
     <%= image_tag @result.quote.quote_image.url %>
   <% end %><br>
   <br>
- 
   <%=audio_tag("#{@result.voice_data.url}", controls: true) %>
+  </br></br>
   <% if @score.ceil(2)< 1 %>
     <%= render 'result1' %>
   <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 %>
@@ -19,4 +19,8 @@
   <% else %>
     <%= render 'result5' %>
   <% end %>
+  </br>
+  <%= link_to 'TOPページへ', root_path  %>
+  <%= link_to 'セリフ一覧へ', quotes_path  %>
+  </br>
 </div>

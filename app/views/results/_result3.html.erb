@@ -1,4 +1,4 @@
-<h2 class="text-danger">あなたの点数は<% @score.ceil(2) %>点です！</h2>
+<h2 class="text-danger">あなたの点数は<%= @score.ceil(2) %>点です！</h2>
 <h4>感情が出ています！<br>でもまだまだ伸びしろがあります！</h4>
 </br>
-<%= link_to 'もう一度チャレンジ！', @quote_path(@result.quote_id)  %>
+<%= link_to 'もう一度チャレンジ！', quote_path(@result.quote_id)  %>

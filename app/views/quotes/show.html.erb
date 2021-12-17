@@ -3,28 +3,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
-<body>
   <div class="text-center">
-    <%= @quote.title %><br>
-    <br>
+  <div class="font-size">
+    <text><%= @quote.title %></text></br>
     <% if @quote.quote_image.present? %>
       <%= image_tag @quote.quote_image.url %>
     <% end %><br>
-    <br>
-    <h4 class="alert alert-danger" id="warning_text">※↓最初にマイク使用許可ボタンを押してください↓※</h4>
-    <button class = "btn btn-danger" id="start" >>>マイク使用許可<<</button>
-    <br>
-    <br>
-    <br>
-    <button class = "btn btn-primary" id="rec" >録音開始</button>
-    <button class = "btn btn-warning" id="stop" >録音停止</button>
-    <button class = "btn btn-info" id="playid" >録音再生</button><br>
+    <div class="usemic">
+      <h4 class="alert alert-danger" id="warning_text">※↓最初にマイク使用許可ボタンを押してください↓※</h4>
+      <button class = "btn btn-danger" id="start" >>>マイク使用許可<<</button>
+    </div>
+    <button class = "btn btn-dark w-25" id="rec" >録音開始</button>
+    <button class = "btn btn-warning w-25" id="stop" >録音停止</button>
+    <button class = "btn btn-secondary w-25" id="playid" >録音再生</button>
     </br>
-    <h5>※録音開始すると相手役の音声が流れます。音量に気をつけて下さい</br>※録音できる秒数は相手役の音声含め30秒です</br>※30秒経過すると録音停止します</h5></br>
+    <text>※録音開始すると相手役の音声が流れます。音量注意</br>※録音できる秒数は相手役の音声含め30秒です</br>※30秒経過すると録音停止します</text>
+    </br>
     <%= audio_tag(@quote.opposite_voice.url, id: "oppositevoice") %>
     <audio id="play" controls></audio><br>
     <a id ="download" type="hidden"></a><br>
-    <button class = "btn btn-danger" id="result" >>>>演技判定結果へ進む<<<</button><br>
+    <button class = "btn btn-danger " id="result" >>>>演技判定結果へ進む<<<</button><br>
     <%= form_with url:quote_results_path(@quote), id: "voiceform", local: true do |f| %>
 
       <%= f.hidden_field :quote_id, :value => @quote.id %>
@@ -32,11 +30,13 @@
       <%= f.hidden_field  :voice_data  %>
     <% end %>
     <br>
+    <%= link_to 'TOPページへ', root_path  %>
+    <%= link_to 'セリフ一覧へ', quotes_path  %>
     <br>
     <br>
+    </div>
   </div>
   <%= link_to 'セリフ作成', new_quote_path %>
   <%= link_to 'セリフ編集', edit_quote_path %><br>
-</body>
 <%= javascript_pack_tag 'app' %>
 </html>
