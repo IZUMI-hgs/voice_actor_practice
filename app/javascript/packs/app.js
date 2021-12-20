@@ -6,6 +6,7 @@ axios.defaults.headers['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token'
 const downloadLink = document.getElementById('download');
 const playback = document.getElementById('play');
 const result = document.getElementById('result');
+const opposite = document.getElementById('oppositevoice');
 
 
 // for audio
@@ -90,6 +91,7 @@ var onAudioProcess = function (e) {
 //録音の停止
 document.getElementById('stop').onclick = function() {
     saveAudio();
+    opposite.pause();
     document.getElementById("rec").disabled = false;
     document.getElementById("stop").disabled = true;
     document.getElementById("playid").disabled = false;
