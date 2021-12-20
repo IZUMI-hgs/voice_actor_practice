@@ -7,12 +7,14 @@ const downloadLink = document.getElementById('download');
 const playback = document.getElementById('play');
 const result = document.getElementById('result');
 
+
 // for audio
 let stream = null;
 let audio_sample_rate = null;
 let scriptProcessor = null;
 let audioContext = null;
 let mediastreamsource = null;
+var timeout_id = null;
 
 // audio data
 let audioData = [];
@@ -66,9 +68,13 @@ document.getElementById('rec').onclick = function() {
     document.getElementById("rec").disabled = true;
     document.getElementById("stop").disabled = false;
     document.getElementById("playid").disabled = true;
-    setTimeout(function(){
-        document.getElementById('stop').click();
-    },30000);
+    timeout_id = setTimeout(() => {
+        document.getElementById("stop").click(); // ボタンがクリックされなければ30秒後にstopが押される
+      }, 30000);
+      document.getElementById("stop").addEventListener('click', () => {
+        clearTimeout(timeout_id);
+        console.log('キャンセルしました');
+      });
 };
 
 // save audio data
