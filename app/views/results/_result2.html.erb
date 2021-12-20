@@ -1,4 +1,4 @@
-<h2 class="text-danger">あなたの点数は<%= (@score*3).ceil(2) %>点です！</h2>
+<h2 class="text-danger">セリフ『<%= @result.quote.title %>』の</br>あなたの点数は<%= (@score*3).ceil(2) %>点です！</h2>
 <h4>感情が出てきています！<br>次はもう少し大げさに演じてみてください！もっと出せます！</h4>
 </br>
 <%= link_to 'もう一度チャレンジ！', quote_path(@result.quote_id)  %>

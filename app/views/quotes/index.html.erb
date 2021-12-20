@@ -1,9 +1,36 @@
 <div class="text-center">
   <h2>練習したいセリフを選ぼう！</h2>
   </br>
-  <% @quotes.each do |quote| %>
-      <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3' do %>
+  <div class="quote_emotion_index">
+    <h2>【感情：怒り】 のセリフ</h2>
+    <% @angry_quotes.each do |quote| %>
+      <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3 mb-3' do %>
          <%= quote.title %>
       <% end %>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="quote_emotion_index">
+    <h2>【感情：悲しみ】 のセリフ</h2>
+    <% @sad_quotes.each do |quote| %>
+      <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3 mb-3' do %>
+         <%= quote.title %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="quote_emotion_index">
+    <h2>【感情：喜び】 のセリフ</h2>
+    <% @happy_quotes.each do |quote| %>
+      <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3 mb-3' do %>
+        <%= quote.title %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="quote_emotion_index">
+    <h2>【感情：嫌悪】 のセリフ</h2>
+    <% @disgust_quotes.each do |quote| %>
+      <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3 mb-3' do %>
+        <%= quote.title %>
+      <% end %>
+    <% end %>
+  </div>
 </div>

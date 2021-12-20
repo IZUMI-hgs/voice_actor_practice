@@ -139,6 +139,10 @@ section h2 span {
 	font-size: 23px;
 }
 
+.quote_emotion_index{
+	padding-bottom: 80px;
+}
+
 /* SEC02 Gallery
 ------------------------------------------------------------*/
 #sec02{
@@ -298,6 +302,9 @@ section h2 span {
 		width: 35%;
 		padding-right: 4%;
 	}
+	.quote_emotion_index{
+		padding-bottom: 50px;
+	}
 }
 
 @media only screen and (max-width: 640px){
@@ -343,7 +350,9 @@ section h2 span {
 	.font-size text{
 		font-size: 3px;
 	}
-	
+	.quote_emotion_index{
+		padding-bottom: 50px;
+	}
 }
 
 @media only screen and (max-width: 799px){

@@ -19,7 +19,9 @@
     </br>
     <text>※録音開始すると相手役の音声が流れます。音量注意</br>※録音できる秒数は相手役の音声含め30秒です</br>※30秒経過すると録音停止します</text>
     </br>
-    <%= audio_tag(@quote.opposite_voice.url, id: "oppositevoice") %>
+    <% if @quote.opposite_voice.present? %>
+      <%= audio_tag(@quote.opposite_voice.url, id: "oppositevoice") %>
+    <% end %>
     <audio id="play" controls></audio><br>
     <a id ="download" type="hidden"></a><br>
     <button class = "btn btn-danger " id="result" >>>>演技判定結果へ進む<<<</button><br>
