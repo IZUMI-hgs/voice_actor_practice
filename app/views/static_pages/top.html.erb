@@ -1,31 +1,7 @@
-<div class="text-center ">
-  </br>
-  <%= image_tag('main.jpeg', size: '1100x700') %>
-
-<div class="innerS">
-  <h1>〜使い方〜</h1>
-  <div class="container">
-	<div class="row">
-	  <div class="col-md-4 col-sm-12 col-xs-12">
-		<%= image_tag('logo1.jpg') %><br>
-		<h4 style="text-align: left">セリフ一覧から練習したいセリフをクリック。<h4>
-	  </div>
-	  <div class="col-md-4 col-sm-12 col-xs-12">
-		<%= image_tag('logo2.jpg') %><br>
-		<h4 style="text-align: left">『録音開始』を押すと相手役セリフ音声が流れるので、相手に応答する形であなたのセリフを発声してください。</h4>
-	  </div>
-	  <div class="col-md-4 col-sm-12 col-xs-12">
-		<%= image_tag('logo3.jpg') %><br>
-		<h4 style="text-align: left">発声が終わったら『録音停止』ボタンをクリック。『判定結果へ』ボタンで点数を確認しましょう。</h4>
-	  </div>
-	</div>
+ <div class="bg-light p-3 p-sm-5 my-4 rounded" id="back">
+ <div class="catch-text">
+	<h1 id="first-text">”ひとり”でも</br>”掛け合い”が</br>練習できるアプリ。</h1>
+	<%= link_to ">>>練習スタート<<<", quotes_path, class: "btn btn-danger btn-lg text-light", id: "startbtn"%>
   </div>
 </div>
-
-
-<%= link_to ">>>練習スタート<<<", quotes_path, class: "btn btn-danger btn-lg text-light" %>
-</div>
-<br>
-<br>
-<br>
 

@@ -27,6 +27,7 @@ document.getElementById("start").disabled = false;
 document.getElementById("rec").disabled = true;
 document.getElementById("stop").disabled = true;
 document.getElementById("playid").disabled = true;
+result.disabled = true;
 
 //録音の開始
 document.getElementById('start').onclick = function() {
@@ -53,6 +54,7 @@ document.getElementById('start').onclick = function() {
     document.getElementById("rec").disabled = false;
     document.getElementById("stop").disabled = true;
     document.getElementById("playid").disabled = true;
+    result.disabled = true;
 
 };
 
@@ -95,6 +97,7 @@ document.getElementById('stop').onclick = function() {
     document.getElementById("rec").disabled = false;
     document.getElementById("stop").disabled = true;
     document.getElementById("playid").disabled = false;
+    result.disabled = false;
 }
 
 //再生
