@@ -184,6 +184,7 @@ let saveAudio = function () {
 };
 
 result.onclick = function() {
+  result.disabled = true;
   var xhr = new XMLHttpRequest();
   xhr.open('GET', document.querySelector('#download').href, true);
   xhr.responseType = 'blob';
