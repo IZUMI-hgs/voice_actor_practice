@@ -15,10 +15,12 @@
     <%= render 'result2' %>
   <% elsif @score.ceil(2)>= 10 && @score.ceil(2) < 40 %>
     <%= render 'result3' %>
-  <% elsif @score.ceil(2)>= 40 && @score.ceil(2) < 60 %>
+  <% elsif @score.ceil(2)>= 40 && @score.ceil(2) < 70 %>
     <%= render 'result4' %>
-  <% else %>
+  <% elsif @score.ceil(2)>= 70 && @score.ceil(2) < 85 %>
     <%= render 'result5' %>
+  <% else %>
+    <%= render 'result6' %>
   <% end %>
   <!-- <%= link_to 'Twitterで結果をシェア！', "https://twitter.com/share?url=#{request.url}&text=セリフ『#{@result.quote.title}』にチャレンジしたよ！演技判定結果はリンクをクリック！%0a%0aひとりでも掛け合いのセリフ練習をしよう！%0a&hashtags=声優セリフ練習アプリ,ひとりで掛け合いセリフ練習",class: 'btn btn-primary', title: 'Twitter', target: '_blank' %>  -->
   </br>
