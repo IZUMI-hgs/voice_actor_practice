@@ -7,6 +7,10 @@ const downloadLink = document.getElementById('download');
 const playback = document.getElementById('play');
 const result = document.getElementById('result');
 const opposite = document.getElementById('oppositevoice');
+const start = document.getElementById("start")
+const rec = document.getElementById("rec")
+const stop = document.getElementById("stop")
+const play = document.getElementById("playid")
 
 
 // for audio
@@ -23,14 +27,14 @@ let bufferSize = 1024;
 let micBlobUrl = null;
 
 
-document.getElementById("start").disabled = false;
-document.getElementById("rec").disabled = true;
-document.getElementById("stop").disabled = true;
-document.getElementById("playid").disabled = true;
+start.disabled = false;
+rec.disabled = true;
+stop.disabled = true;
+play.disabled = true;
 result.disabled = true;
 
 //録音の開始
-document.getElementById('start').onclick = function() {
+start.onclick = function() {
     // getUserMedia
     if (!stream) {
         // getUserMediaはpromise を返す
@@ -42,7 +46,7 @@ document.getElementById('start').onclick = function() {
                 stream = audio;
                 console.log('録音に対応しています');
                 document.getElementById('warning_text').style.display = "none";
-                document.getElementById('start').style.display = "none";
+                start.style.display = "none";
                 return stream
             })
             .catch(function (error) { // error
@@ -50,15 +54,15 @@ document.getElementById('start').onclick = function() {
                 return;
             });
     }
-    document.getElementById("start").disabled = true;
-    document.getElementById("rec").disabled = false;
-    document.getElementById("stop").disabled = true;
-    document.getElementById("playid").disabled = true;
+    start.disabled = true;
+    rec.disabled = false;
+    stop.disabled = true;
+    play.disabled = true;
     result.disabled = true;
 
 };
 
-document.getElementById('rec').onclick = function() {
+rec.onclick = function() {
     audioData = [];
     audioContext = new AudioContext();
     audio_sample_rate = audioContext.sampleRate;
@@ -67,14 +71,14 @@ document.getElementById('rec').onclick = function() {
     mediastreamsource.connect(scriptProcessor);
     scriptProcessor.onaudioprocess = onAudioProcess;
     scriptProcessor.connect(audioContext.destination);
-    document.querySelector("#oppositevoice").play();
-    document.getElementById("rec").disabled = true;
-    document.getElementById("stop").disabled = false;
-    document.getElementById("playid").disabled = true;
+    opposite.play();
+    rec.disabled = true;
+    stop.disabled = false;
+    play.disabled = true;
     timeout_id = setTimeout(() => {
-        document.getElementById("stop").click(); // ボタンがクリックされなければ30秒後にstopが押される
+        stop.click(); // ボタンがクリックされなければ30秒後にstopが押される
       }, 30000);
-      document.getElementById("stop").addEventListener('click', () => {
+      stop.addEventListener('click', () => {
         clearTimeout(timeout_id);
         console.log('キャンセルしました');
       });
@@ -91,17 +95,17 @@ var onAudioProcess = function (e) {
 };
 
 //録音の停止
-document.getElementById('stop').onclick = function() {
+stop.onclick = function() {
     saveAudio();
     opposite.pause();
-    document.getElementById("rec").disabled = false;
-    document.getElementById("stop").disabled = true;
-    document.getElementById("playid").disabled = false;
+    rec.disabled = false;
+    stop.disabled = true;
+    play.disabled = false;
     result.disabled = false;
 }
 
 //再生
-document.getElementById('playid').onclick = function(audioBlob) {
+play.onclick = function(audioBlob) {
     if (micBlobUrl) {
         playback.src = micBlobUrl;
         // 再生終了時
