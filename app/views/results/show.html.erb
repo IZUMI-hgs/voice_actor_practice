@@ -9,13 +9,19 @@
   </br></br>
   <% if @score.ceil(2) == 0 && @result.quote.emotion == "sad" %>
     <%= render 'result0sad' %>
+  <% elsif @score.ceil(2) == 0 && @result.quote.emotion == "happy" %>
+    <%= render 'result0sad' %>
   <% elsif @score.ceil(2) == 0 %>
     <%= render 'result0' %>
   <% elsif @score.ceil(2) < 1 && @result.quote.emotion == "sad" %>
     <%= render 'result1sad' %>
+  <% elsif @score.ceil(2) < 1 && @result.quote.emotion == "happy" %>
+    <%= render 'result1sad' %>
   <% elsif @score.ceil(2)< 1 %>
     <%= render 'result1' %>
   <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 && @result.quote.emotion == "sad" %>
+    <%= render 'result2sad' %>
+  <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 && @result.quote.emotion == "happy" %>
     <%= render 'result2sad' %>
   <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 %>
     <%= render 'result2' %>
