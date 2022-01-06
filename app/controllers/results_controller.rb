@@ -4,8 +4,6 @@ class ResultsController < ApplicationController
 
   def show
     @result = Result.find_by(uuid: params[:uuid])
-    parsed_result_message = JSON.parse @result.result_message
-    @score = parsed_result_message['emotion_detail'][@result.quote.emotion]*100
   end
 
 

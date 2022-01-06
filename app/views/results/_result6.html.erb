@@ -1,4 +1,4 @@
-<p class="text-danger">セリフ『<%= @result.quote.title %>』の</br>あなたの点数は<%= @score.ceil(2)%>点です！(100点満点中)</p>
+<p class="text-danger">セリフ『<%= @result.quote.title %>』の</br>あなたの点数は<%= @result.score.ceil(2)%>点です！(100点満点中)</p>
 <p>ぎゃふん！<br>まさかこんなに高得点が出せるとは・・難易度高めに作った製作者もびっくりです！</p>
 <p><%= link_to 'もう一度チャレンジ！', quote_path(@result.quote_id), class: "link"  %></p>
 </br>
