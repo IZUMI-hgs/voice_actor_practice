@@ -38,7 +38,7 @@
   <% else %>
     <%= render 'result6' %>
   <% end %>
-  <%= link_to 'Twitterであなたの演技をシェア！', "https://twitter.com/share?url=#{request.url}&text=セリフ『#{@result.quote.title}』にチャレンジしたよ！演技判定結果はリンクをクリック！%0a%0aひとりでも掛け合いのセリフ練習をしよう！%0a&hashtags=声優セリフ練習アプリ,ひとりで掛け合いセリフ練習",class: 'btn btn-primary', title: 'Twitter', target: '_blank' %> 
+  <%= link_to 'Twitterであなたの演技をシェア！', "https://twitter.com/share?url=#{request.url}&text=セリフ『#{@result.quote.title}』にチャレンジしたよ！演技判定結果はリンクをクリック！%0a%0aひとりでも掛け合いのセリフ練習をしよう！%0a&hashtags=声優セリフ練習アプリ",class: 'btn btn-primary', title: 'Twitter', target: '_blank' %> 
   </br>
   </br>
   <h4><%= link_to 'TOPページへ', root_path , class: "link" %>&nbsp;&nbsp;&nbsp;
