@@ -7,37 +7,11 @@
   <br>
   <%=audio_tag("#{@result.voice_data.url}", controls: true) %>
   </br></br>
-  <% if @score.ceil(2) == 0 && @result.quote.emotion == "sad" %>
-    <%= render 'result0sad' %>
-  <% elsif @score.ceil(2) == 0 && @result.quote.emotion == "happy" %>
-    <%= render 'result0sad' %>
-  <% elsif @score.ceil(2) == 0 %>
-    <%= render 'result0' %>
-  <% elsif @score.ceil(2) < 1 && @result.quote.emotion == "sad" %>
-    <%= render 'result1sad' %>
-  <% elsif @score.ceil(2) < 1 && @result.quote.emotion == "happy" %>
-    <%= render 'result1sad' %>
-  <% elsif @score.ceil(2)< 1 %>
-    <%= render 'result1' %>
-  <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 && @result.quote.emotion == "sad" %>
-    <%= render 'result2sad' %>
-  <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 && @result.quote.emotion == "happy" %>
-    <%= render 'result2sad' %>
-  <% elsif @score.ceil(2)>= 1 && @score.ceil(2) < 10 %>
-    <%= render 'result2' %>
-  <% elsif @score.ceil(2)>= 10 && @score.ceil(2) < 70 && @result.quote.emotion == "sad" %>
-    <%= render 'result3sad' %>
-  <% elsif @score.ceil(2)>= 10 && @score.ceil(2) < 70 && @result.quote.emotion == "happy" %>
-    <%= render 'result3sad' %>
-  <% elsif @score.ceil(2)>= 10 && @score.ceil(2) < 40 %>
-    <%= render 'result3' %>
-  <% elsif @score.ceil(2)>= 40 && @score.ceil(2) < 70 %>
-    <%= render 'result4' %>
-  <% elsif @score.ceil(2)>= 70 && @score.ceil(2) < 85 %>
-    <%= render 'result5' %>
-  <% else %>
-    <%= render 'result6' %>
-  <% end %>
+  
+  <p class="text-danger">セリフ『<%= @result.quote.title %>』の</br>あなたの点数は<%= @display[:score] %>点です!(100点満点中)</p>
+  <p><%= h(@display[:message]).gsub(/\n|\r|\r\n/, "<br>").html_safe %></p>
+  <h4><%= link_to 'もう一度チャレンジ！', quote_path(@result.quote_id), class: "link"  %></h4>
+  </br>
   <%= link_to 'Twitterであなたの演技をシェア！', "https://twitter.com/share?url=#{request.url}&text=セリフ『#{@result.quote.title}』にチャレンジしたよ！演技判定結果はリンクをクリック！%0a%0aひとりでも掛け合いのセリフ練習をしよう！%0a&hashtags=声優セリフ練習アプリ",class: 'btn btn-primary', title: 'Twitter', target: '_blank' %> 
   </br>
   </br>

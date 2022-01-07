@@ -4,8 +4,7 @@ class ResultsController < ApplicationController
 
   def show
     @result = Result.find_by(uuid: params[:uuid])
-    hash = JSON.parse @result.result_message.gsub('=>', ':')
-    @score = hash["emotion_detail"][@result.quote.emotion]*100
+    @display = ResultDisplayService.new(@result).call
   end
 
 
@@ -13,17 +12,16 @@ class ResultsController < ApplicationController
     url = ENV['API_URL']
     voice = File.new(params[:voice_data])
     response = RestClient::Request.execute(
-    method: :post,
-    url: url,
-    payload: {
-    multipart: true,
-    api_key: ENV['API_KEY'],
-    voice_data: voice },
-    content_type: 'audio/wav'
+      method: :post,
+      url: url,
+      payload: {
+        multipart: true,
+        api_key: ENV['API_KEY'],
+        voice_data: voice
+      },
+      content_type: 'audio/wav'
     )
-    data = JSON.parse(response.body)
-
-    result =Result.create(result_params.merge(uuid: SecureRandom.uuid, result_message: data))
+    result = Result.create(result_params.merge(uuid: SecureRandom.uuid, result_message: response.body))
     render json: { uuid: result.uuid, url: quote_result_url(result.quote_id, result.uuid) }
   end
 
