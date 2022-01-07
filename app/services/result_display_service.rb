@@ -22,32 +22,32 @@ class ResultDisplayService
       }
     elsif result.score.ceil(2) < 1 && result.quote.emotion == "sad"
       {
-        score: result.score*36,
+        score: result.score.ceil(2)*36,
         message: "もっと感情を出すことができるはず！殻を破って演技に全力投球してみて下さい！\nヒント：演技の方向性を変える事で判定結果が変わる場合があります。\n例:泣き喚く演技→悲しみを堪えるような演技など・・"
       }
     elsif result.score.ceil(2) < 1 && result.quote.emotion == "happy"
       {
-        score: result.score*36,
+        score: result.score.ceil(2)*36,
         message: "もっと感情を出すことができるはず！殻を破って演技に全力投球してみて下さい！\nヒント：演技の方向性を変える事で判定結果が変わる場合があります。\n例:泣き喚く演技→悲しみを堪えるような演技など・・"
       }
     elsif result.score.ceil(2) < 1
       {
-        score: result.score*16,
+        score: result.score.ceil(2)*16,
         message: "もっと感情を出すことができるはず！殻を破って演技に全力投球してみて下さい！\nヒント：演技の方向性を変える事で判定結果が変わる場合があります。\n例:泣き喚く演技→悲しみを堪えるような演技など・・"
       }
     elsif result.score.ceil(2)>= 1 && @result.score.ceil(2) < 10 && @result.quote.emotion == "sad"
       {
-        score: result.score*7,
+        score: result.score.ceil(2)*7,
         message: "感情が出てきています！\nとても良いですね！引き続きチャレンジしてみて下さい！"
       }
     elsif result.score.ceil(2)>= 1 && @result.score.ceil(2) < 10 && @result.quote.emotion == "happy"
       {
-        score: result.score*7,
+        score: result.score.ceil(2)*7,
         message: "感情が出てきています！\nとても良いですね！引き続きチャレンジしてみて下さい！"
       }
     elsif result.score.ceil(2)>= 1 && @result.score.ceil(2) < 10
       {
-        score: result.score*3,
+        score: result.score.ceil(2)*3,
         message: "感情が出てきています！\n次はもう少し大げさに演じてみてください！もっと出せます！"
       }
     elsif result.score.ceil(2)>= 10 && @result.score.ceil(2) < 70 && @result.quote.emotion == "sad"
