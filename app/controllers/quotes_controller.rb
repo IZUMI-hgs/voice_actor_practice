@@ -5,6 +5,7 @@ class QuotesController < ApplicationController
     @sad_quotes = Quote.where(emotion: "sad")
     @happy_quotes = Quote.where(emotion: "happy")
     @disgust_quotes = Quote.where(emotion: "disgust")
+    @surprise_quotes = Quote.where(emotion: "surprise")
 
   end
 
