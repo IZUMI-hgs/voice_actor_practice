@@ -7,17 +7,17 @@ class ResultDisplayService
   def call
     if result.score.ceil(2) == 0 && result.quote.emotion == "sad"
       {
-        score: result.created_at.strftime("%S")[1].to_i*3.09,
+        score: (result.created_at.strftime("%S")[1].to_i*3.09).ceil(2),
         message: "もっと感情を出すことができるはず！殻を破って演技に全力投球してみて下さい！\nヒント：演技の方向性を変える事で判定結果が変わる場合があります。\n例:怒鳴る演技→声は小さいけど怒りをにじませる演技など・・"
       }
     elsif result.score.ceil(2) == 0 && result.quote.emotion == "happy"
       {
-        score: result.created_at.strftime("%S")[1].to_i*3.09,
+        score: (result.created_at.strftime("%S")[1].to_i*3.09).ceil(2),
         message: "もっと感情を出すことができるはず！殻を破って演技に全力投球してみて下さい！\nヒント：演技の方向性を変える事で判定結果が変わる場合があります。\n例:怒鳴る演技→声は小さいけど怒りをにじませる演技など・・"
       }
     elsif result.score.ceil(2) == 0
       {
-        score: result.created_at.strftime("%S")[1].to_i*1.6,
+        score: (result.created_at.strftime("%S")[1].to_i*1.6).ceil(2),
         message: "もっと感情を出すことができるはず！殻を破って演技に全力投球してみて下さい！\nヒント：演技の方向性を変える事で判定結果が変わる場合があります。\n例:怒鳴る演技→声は小さいけど怒りをにじませる演技など・・"
       }
     elsif result.score.ceil(2) < 1 && result.quote.emotion == "sad"
