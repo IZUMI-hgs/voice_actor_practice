@@ -7,8 +7,7 @@ class ResultsController < ApplicationController
     @display = ResultDisplayService.new(@result).call
   end
 
-
-  def create     
+  def create
     url = ENV['API_URL']
     voice = File.new(params[:voice_data])
     response = RestClient::Request.execute(
@@ -28,6 +27,6 @@ class ResultsController < ApplicationController
   private
 
   def result_params
-    params.permit(:quote_id, :voice_data )
+    params.permit(:quote_id, :voice_data)
   end
 end

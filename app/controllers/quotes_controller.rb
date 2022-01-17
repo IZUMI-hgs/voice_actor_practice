@@ -1,11 +1,11 @@
 class QuotesController < ApplicationController
-  before_action :set_quote, only: [:show,:update,:edit,:delete ]
+  before_action :set_quote, only: [:show, :update, :edit, :delete]
   def index
-    @angry_quotes = Quote.where(emotion: "angry")
-    @sad_quotes = Quote.where(emotion: "sad")
-    @happy_quotes = Quote.where(emotion: "happy")
-    @disgust_quotes = Quote.where(emotion: "disgust")
-    @surprise_quotes = Quote.where(emotion: "surprise")
+    @angry_quotes = Quote.where(emotion: 'angry')
+    @sad_quotes = Quote.where(emotion: 'sad')
+    @happy_quotes = Quote.where(emotion: 'happy')
+    @disgust_quotes = Quote.where(emotion: 'disgust')
+    @surprise_quotes = Quote.where(emotion: 'surprise')
   end
 
   def new
@@ -13,7 +13,7 @@ class QuotesController < ApplicationController
   end
 
   def create
-    @quote =Quote.create(quote_params)
+    @quote = Quote.create(quote_params)
     if @quote.save
       redirect_to quotes_path
     else
@@ -34,9 +34,9 @@ class QuotesController < ApplicationController
   end
 
   private
-  
+
   def quote_params
-    params.require(:quote).permit(:title, :quote_image, :opposite_voice, :emotion )
+    params.require(:quote).permit(:title, :quote_image, :opposite_voice, :emotion)
   end
 
   def set_quote
