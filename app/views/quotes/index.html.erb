@@ -41,4 +41,12 @@
       <% end %>
     <% end %>
   </div>
+  <div class="quote_emotion_index">
+  <h2>【感情：平静】 のセリフ</h2>
+  <% @neutral_quotes.each do |quote| %>
+    <%= link_to quote_path(quote), class: 'btn btn-danger col-md-3 mb-3' do %>
+      <%= quote.title %>
+    <% end %>
+  <% end %>
+</div>
 </div>
