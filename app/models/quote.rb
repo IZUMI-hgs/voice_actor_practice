@@ -4,5 +4,5 @@ class Quote < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :emotion, presence: true
   enum emotion: { angry: 0, sad: 1, happy: 2, disgust: 3, surprise: 4, neutral:5 }
-  has_many :results
+  has_many :results, dependent: :delete_all
 end
