@@ -1,12 +1,12 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :update, :edit, :delete]
   def index
-    @angry_quotes = Quote.where(emotion: 'angry')
-    @sad_quotes = Quote.where(emotion: 'sad')
-    @happy_quotes = Quote.where(emotion: 'happy')
-    @disgust_quotes = Quote.where(emotion: 'disgust')
-    @surprise_quotes = Quote.where(emotion: 'surprise')
-    @neutral_quotes = Quote.where(emotion: 'neutral')
+    @angry_quotes = Quote.angry
+    @sad_quotes = Quote.sad
+    @happy_quotes = Quote.happy
+    @disgust_quotes = Quote.disgust
+    @surprise_quotes = Quote.surprise
+    @neutral_quotes = Quote.neutral
   end
 
   def new

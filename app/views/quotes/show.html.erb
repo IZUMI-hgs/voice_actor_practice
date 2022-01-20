@@ -1,11 +1,6 @@
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-</head>
-  <div class="text-center">
+<div class="text-center">
   <div class="font-size">
-  </br>
+    </br>
     <text><%= @quote.title %></text></br>
     <% if @quote.quote_image.present? %>
       <%= image_tag @quote.quote_image.url %>
@@ -37,7 +32,6 @@
     <%= link_to 'セリフ一覧へ', quotes_path, class: "link"  %></h4>
     <br>
     <br>
-    </div>
   </div>
+</div>
 <%= javascript_pack_tag 'app' %>
-</html>
