@@ -1,5 +1,7 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :update, :edit, :delete]
+  before_action :login_scan, only: [:new, :create, :edit, :update]
+  before_action :admin_scan, only: [:create, :update]
   def index
     @angry_quotes = Quote.angry
     @sad_quotes = Quote.sad
@@ -42,5 +44,17 @@ class QuotesController < ApplicationController
 
   def set_quote
     @quote = Quote.find(params[:id])
+  end
+
+  def login_scan
+    unless user_signed_in?
+      redirect_to root_path
+    end
+  end
+
+  def admin_scan
+    unless current_user.admin?
+      redirect_to root_path
+    end
   end
 end

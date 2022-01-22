@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :quotes do
     resources :results, param: :uuid, only: %i[show create]
   end
