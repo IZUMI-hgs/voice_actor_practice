@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: %i[registrations]
   resources :quotes do
     resources :results, param: :uuid, only: %i[show create]
   end
