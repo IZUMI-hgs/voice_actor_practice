@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'static_pages#top'
+  get 'terms', to: 'static_pages#terms'
+  get 'privacypolicy', to: 'static_pages#privacypolicy'
+  get 'information', to: 'static_pages#information'
+  get '*path', controller: 'application', action: 'render404'
 end
