@@ -1,7 +1,4 @@
 class ResultsController < ApplicationController
-  require 'rest-client'
-  require 'json'
-
   def show
     @result = Result.find_by(uuid: params[:uuid])
     @display = ResultDisplayService.new(@result).call
