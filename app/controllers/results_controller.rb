@@ -18,7 +18,7 @@ class ResultsController < ApplicationController
       content_type: 'audio/wav'
     )
     result = Result.create(result_params.merge(uuid: SecureRandom.uuid, result_message: response.body))
-    render json: { uuid: result.uuid, url: quote_result_url(result.quote_id, result.uuid) }
+    render json: { url: quote_result_url(result.quote_id, result.uuid) }
   end
 
   private
